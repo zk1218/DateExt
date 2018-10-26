@@ -218,7 +218,7 @@ console.log(_d.addDays(10));   //2016-12-10 08:00:00
 ```
 
 ### addWeeks(v : number) : DateExt
-返回一个添加了指定天数的新 DateExt 实例
+返回一个添加了指定星期数的新 DateExt 实例
 #### 参数
   * v 由整数组成的星期数。可以是负数也可以是正数。 
   > 此方法不更改此 DateExt 的值。而是返回一个新的 DateExt，其值是此运算的结果。
@@ -307,13 +307,14 @@ console.log(_d.dateDiff("d",new Date("2016-11-29")));   //1
 ### toString(?formatString : string) : String
 转换为字符串
 ### 参数
-  * formatString : 可选。格式化模板字符串，将调用 toFormatString 方法格式化输出（见toFormatString 方法）。如省略则调用父类 Date 的 toString 方法
+  * formatString : 可选。格式化模板字符串，将调用 toFormatString 方法格式化输出（见 toFormatString 方法）。如省略则调用父类 Date 的 toString 方法
 ```js
 console.log(now.toString());
 ---------------------------------
 let _d = new DateExt("2016-11-30 08:00:00");
 console.log(_d.toString());   //Wed Nov 30 2016 08:00:00 GMT+0800 (中国标准时间)
 console.log(_d.toString("yyyy年M月dd日h点m分"));   //2016年11月30日8点0分
+console.log(_d.toFormatString("时间是yyyy年M月d日h点m分s秒，www，ww，yyyy年qqqM月tt"));   //时间是2016年11月30日8点0分0秒，星期三，周三，2016年四季度11月下旬
 ```
 
 ### toFormatString(formatString : string) : String
@@ -335,5 +336,8 @@ console.log(_d.toString("yyyy年M月dd日h点m分"));   //2016年11月30日8点0
      * www :    三汉字星期
      * ww :     两汉字星期
      * w :      单汉字星期
+     * qqq:     三汉字季度
+     * qq:      两汉字季度
+     * q:       单汉字季度
      * tt :     两汉字旬
      * t :      单汉字旬

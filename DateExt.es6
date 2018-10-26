@@ -20,7 +20,6 @@
 *		* 完成主要功能
 */
 
-
 //返回当前日期时间对象
 Object.defineProperties(window, {
     "now": { get: function () { return new DateExt(); } },
@@ -272,6 +271,9 @@ class DateExt extends Date {
      *       www:    三汉字星期
      *       ww:     两汉字星期
      *       w:      单汉字星期
+     *       qqq:    三汉字季度
+     *       qq:     两汉字季度
+     *       q:      单汉字季度
      *       tt:     两汉字旬
      *       t:      单汉字旬
      */
@@ -279,37 +281,42 @@ class DateExt extends Date {
         if (!v) { return this.toLocaleString() };
 
         let year = this.year;
-        v = v.replace('yyyy', year);
-        v = v.replace('yy', year.toString().substr(2));
+        v = v.replace(/yyyy/g, year);
+        v = v.replace(/yy/g, year.toString().substr(2));
 
         let month = this.month;
-        v = v.replace('MM', month < 10 ? '0' + month : month);
-        v = v.replace('M', month);
+        v = v.replace(/MM/g, month < 10 ? "0" + month : month);
+        v = v.replace(/M/g, month);
 
         let day = this.day;
-        v = v.replace('dd', day < 10 ? '0' + day : day);
-        v = v.replace('d', day);
+        v = v.replace(/dd/g, day < 10 ? "0" + day : day);
+        v = v.replace(/d/g, day);
 
         let hour = this.hour;
-        v = v.replace('hh', hour < 10 ? '0' + hour : hour);
-        v = v.replace('h', hour);
+        v = v.replace(/hh/g, hour < 10 ? "0" + hour : hour);
+        v = v.replace(/h/g, hour);
 
         let minute = this.minute;
-        v = v.replace('mm', minute < 10 ? '0' + minute : minute);
-        v = v.replace('m', minute);
+        v = v.replace(/mm/g, minute < 10 ? "0" + minute : minute);
+        v = v.replace(/m/g, minute);
 
         let second = this.second;
-        v = v.replace('ss', second < 10 ? '0' + second : second);
-        v = v.replace('s', second);
+        v = v.replace(/ss/g, second < 10 ? "0" + second : second);
+        v = v.replace(/s/g, second);
 
         let dayOfWeek = this.dayOfWeek;
-        v = v.replace('www', ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][dayOfWeek]);
-        v = v.replace('ww', ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][dayOfWeek]);
-        v = v.replace('w', ['日', '一', '二', '三', '四', '五', '六'][dayOfWeek]);
+        v = v.replace(/www/g, ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"][dayOfWeek]);
+        v = v.replace(/ww/g, ["周日", "周一", "周二", "周三", "周四", "周五", "周六"][dayOfWeek]);
+        v = v.replace(/w/g, ["日", "一", "二", "三", "四", "五", "六"][dayOfWeek]);
+
+        let strQuarter = ["一", "二", "三","四"][this.quarter];
+        v = v.replace(/qqq/g, strQuarter + "季度");
+        v = v.replace(/qq/g, strQuarter + "季");
+        v = v.replace(/q/g, strQuarter);
 
         let tendays = this.tenDays;
-        v = v.replace("tt", ["上旬", "中旬", "下旬"][tendays]);
-        v = v.replace("t", ["上", "中", "下"][tendays]);
+        v = v.replace(/tt/g, ["上旬", "中旬", "下旬"][tendays]);
+        v = v.replace(/t/g, ["上", "中", "下"][tendays]);
 
         return v;
     };
