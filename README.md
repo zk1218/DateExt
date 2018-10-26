@@ -14,7 +14,7 @@
 >   * 添加 getWeekRange 方法，返回日期对象所在星期的 dateRange 日期范围对象
 >   * 添加 getTenDaysRange 方法，返回日期对象所在旬的 dateRange 日期范围对象
 >   * 添加 getMonthRange 方法，返回日期对象所在月的 dateRange 日期范围对象
->   * 添加 GetQuarterRange 方法，返回日期对象所在季度的 dateRange 日期范围对象
+>   * 添加 getQuarterRange 方法，返回日期对象所在季度的 dateRange 日期范围对象
 >   * 添加 getYearRange 方法，返回日期对象所在年的 dateRange 日期范围对象
 >   
 >   2011-6-10
@@ -24,7 +24,9 @@
 -------------------------------------------------------------------
 ## window.now : DateExt
 为 window 对象添加一个 now 属性，返回调用该属性时的时间
-
+```js
+console.log(now);
+```
 -------------------------------------------------------------------
 
 ## 属性
@@ -152,13 +154,10 @@ console.log(_d.isLeapYear);   //true
 
 ## 方法
 
-### fromJson(s : string) : DateExt
-返回一个类似于“/Date(000000000000+0800)/”这样的json日期字符串转换的日期对象
+### fromJSON(s : string) : DateExt
+静态方法。返回一个类似于“/Date(000000000000+0800)/”这样的json日期字符串转换的日期对象
 ```js
-now.fromJson("/Date(1234567890000+0800)/");//2009-02-14 07:31:30
----------------------------------
-let _d = new DateExt("2016-11-30 08:00:00");
-_d.fromJson("/Date(1234567890000+0800)/");   //2009-02-14 07:31:30
+DateExt.fromJSON("/Date(1234567890000+0800)/");  //2009-02-14 07:31:30
 ```
 
 ### getWeekRange : { f : DateExt , l : DateExt }
@@ -167,7 +166,7 @@ _d.fromJson("/Date(1234567890000+0800)/");   //2009-02-14 07:31:30
 console.log(now.getWeekRange());
 ---------------------------------
 let _d = new DateExt("2016-11-30 08:00:00");
-console.log(_d.getWeekRange());   //{f:2016-11-27,l:2016-12-03}
+console.log(_d.getWeekRange());   //{ f : 2016-11-27 , l : 2016-12-03}
 ```
 
 ### getTenDaysRange : { f : DateExt , l : DateExt }
@@ -176,7 +175,7 @@ console.log(_d.getWeekRange());   //{f:2016-11-27,l:2016-12-03}
 console.log(now.getTenDaysRange());
 ---------------------------------
 let _d = new DateExt("2016-11-30 08:00:00");
-console.log(_d.getTenDaysRange());   //{f:2016-11-21,l:2016-11-30}
+console.log(_d.getTenDaysRange());   //{ f : 2016-11-21 , l : 2016-11-30}
 ```
 
 ### getMonthRange : { f : DateExt , l : DateExt }
@@ -185,7 +184,7 @@ console.log(_d.getTenDaysRange());   //{f:2016-11-21,l:2016-11-30}
 console.log(now.getMonthRange());
 ---------------------------------
 let _d = new DateExt("2016-11-30 08:00:00");
-console.log(_d.getMonthRange());   //{f:2016-11-01,l:2016-11-30}
+console.log(_d.getMonthRange());   //{ f : 2016-11-01 , l : 2016-11-30}
 ```
 
 ### getQuarterRange : { f : DateExt , l : DateExt }
@@ -194,7 +193,7 @@ console.log(_d.getMonthRange());   //{f:2016-11-01,l:2016-11-30}
 console.log(now.getQuarterRange());
 ---------------------------------
 let _d = new DateExt("2016-11-30 08:00:00");
-console.log(_d.getQuarterRange());   //{f:2016-10-01,l:2016-12-31}
+console.log(_d.getQuarterRange());   //{ f : 2016-10-01 , l : 2016-12-31}
 ```
 
 ### getYearRange : { f : DateExt , l : DateExt }
@@ -203,11 +202,11 @@ console.log(_d.getQuarterRange());   //{f:2016-10-01,l:2016-12-31}
 console.log(now.getYearRange());
 ---------------------------------
 let _d = new DateExt("2016-11-30 08:00:00");
-console.log(_d.getYearRange());   //{f:2016-01-01,l:2016-12-31}
+console.log(_d.getYearRange());   //{ f : 2016-01-01 , l : 2016-12-31}
 ```
 
 ### addDays(v : number) : DateExt
-将指定的天数加到此实例的值上。 
+返回一个添加了指定天数的新 DateExt 实例
 #### 参数
   * v 由整数组成的天数。可以是负数也可以是正数。 
   > 此方法不更改此 DateExt 的值。而是返回一个新的 DateExt，其值是此运算的结果。
@@ -219,7 +218,7 @@ console.log(_d.addDays(10));   //2016-12-10 08:00:00
 ```
 
 ### addWeeks(v : number) : DateExt
-将指定的星期数加到此实例的值上。
+返回一个添加了指定天数的新 DateExt 实例
 #### 参数
   * v 由整数组成的星期数。可以是负数也可以是正数。 
   > 此方法不更改此 DateExt 的值。而是返回一个新的 DateExt，其值是此运算的结果。
@@ -231,7 +230,7 @@ console.log(_d.addWeeks(10));   //2017-02-08 08:00:00
 ```
 
 ### addMonths(v : number) : DateExt
-将指定的月份数加到此实例的值上。
+返回一个添加了指定月份数的新 DateExt 实例
 #### 参数
   * v 由整数组成的月份数。可以是负数也可以是正数。 
   > 此方法不更改此 DateExt 的值。而是返回一个新的 DateExt，其值是此运算的结果。
@@ -243,7 +242,7 @@ console.log(_d.addMonths(10));   //2017-09-30 08:00:00
 ```
 
 ### addYears(v : number) : DateExt
-将指定的年数加到此实例的值上。
+返回一个添加了指定年数的新 DateExt 实例
 #### 参数
   * v 由整数组成的年数。可以是负数也可以是正数。 
   > 此方法不更改此 DateExt 的值。而是返回一个新的 DateExt，其值是此运算的结果。
@@ -255,7 +254,7 @@ console.log(_d.addYears(10));   //2026-11-30 08:00:00
 ```
 
 ### addHours(v : number) : DateExt
-将指定的小时数加到此实例的值上。
+返回一个添加了指定小时数的新 DateExt 实例
 #### 参数
   * v 由整数组成的小时数。可以是负数也可以是正数。 
   > 此方法不更改此 DateExt 的值。而是返回一个新的 DateExt，其值是此运算的结果。
@@ -267,7 +266,7 @@ console.log(_d.addHours(10));   //2016-11-30 18:00:00
 ```
 
 ### addMinutes(v : number) : DateExt
-将指定的分钟数加到此实例的值上。
+返回一个添加了指定分钟数的新 DateExt 实例
 #### 参数
   * v 由整数组成的分钟数。可以是负数也可以是正数。 
   > 此方法不更改此 DateExt 的值。而是返回一个新的 DateExt，其值是此运算的结果。
@@ -279,7 +278,7 @@ console.log(_d.addMinutes(10));   //2016-11-30 08:10:00
 ```
 
 ### addSeconds(v : number) : DateExt
-将指定的秒数加到此实例的值上。
+返回一个添加了指定秒数的新 DateExt 实例
 #### 参数
   * v 由整数组成的秒数。可以是负数也可以是正数。 
   > 此方法不更改此 DateExt 的值。而是返回一个新的 DateExt，其值是此运算的结果。

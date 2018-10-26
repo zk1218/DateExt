@@ -78,7 +78,8 @@ class DateExt extends Date {
     get isLeapYear() { return ((this.year % 400) == 0) || ((this.year % 4 == 0) && (this.year % 100) != 0); };
 
     /** 返回一个类似于“/Date(000000000000+0800)/”这样的json日期字符串转换的日期对象*/
-    fromJson(s) { return new DateExt(parseInt(s.match(/\d+/))); };
+    static fromJson(s) { return new DateExt(parseInt(s.match(/\d+/))); };
+    static fromJSON(s) { return this.fromJson(s); };
 
     /** 返回对象所在星期的日期范围，返回值是包含了星期第一天和最后一天的日期范围对象*/
     getWeekRange() {
