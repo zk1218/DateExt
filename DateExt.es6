@@ -106,25 +106,10 @@ class DateExt extends Date {
 
     /**返回对象所在季度的日期范围，返回值是包含了季度第一天和最后一天的日期范围对象 */
     getQuarterRange() {
-        let arrQ = [
-            {
-                "f": new DateExt(this.year, 0, 1),
-                "l": new DateExt(this.year, 2, 31)
-            },
-            {
-                "f": new DateExt(this.year, 3, 1),
-                "l": new DateExt(this.year, 5, 30)
-            },
-            {
-                "f": new DateExt(this.year, 6, 1),
-                "l": new DateExt(this.year, 8, 30)
-            },
-            {
-                "f": new DateExt(this.year, 9, 1),
-                "l": new DateExt(this.year, 11, 31)
-            }
-        ];
-        return arrQ[this.quarter];
+        return {
+            "f": new DateExt(this.year, [0,3,6,9][this.quarter], 1),
+            "l": new DateExt(this.year, [2,5,8,11][this.quarter], [31,30,30,31][this.quarter])
+        };
     };
 
     /**返回对象所在年的日期范围，返回值是包含了年份第一天和最后一天的日期范围对象 */
@@ -304,19 +289,19 @@ class DateExt extends Date {
         v = v.replace(/ss/g, second < 10 ? "0" + second : second);
         v = v.replace(/s/g, second);
 
-        let dayOfWeek = this.dayOfWeek;
-        v = v.replace(/www/g, ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"][dayOfWeek]);
-        v = v.replace(/ww/g, ["周日", "周一", "周二", "周三", "周四", "周五", "周六"][dayOfWeek]);
-        v = v.replace(/w/g, ["日", "一", "二", "三", "四", "五", "六"][dayOfWeek]);
+        let strDayOfWeek = ["日", "一", "二", "三", "四", "五", "六"][this.dayOfWeek];
+        v = v.replace(/www/g, "星期" + strDayOfWeek);
+        v = v.replace(/ww/g, "周" + strDayOfWeek);
+        v = v.replace(/w/g, strDayOfWeek);
 
-        let strQuarter = ["一", "二", "三","四"][this.quarter];
+        let strQuarter = ["一", "二", "三", "四"][this.quarter];
         v = v.replace(/qqq/g, strQuarter + "季度");
         v = v.replace(/qq/g, strQuarter + "季");
         v = v.replace(/q/g, strQuarter);
 
-        let tendays = this.tenDays;
-        v = v.replace(/tt/g, ["上旬", "中旬", "下旬"][tendays]);
-        v = v.replace(/t/g, ["上", "中", "下"][tendays]);
+        let strTendays = ["上", "中", "下"][this.tenDays];
+        v = v.replace(/tt/g, strTendays + "旬");
+        v = v.replace(/t/g, strTendays);
 
         return v;
     };
